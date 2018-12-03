@@ -21,6 +21,8 @@ Moved to settings_.
 
 Build The Stack
 ---------------
+    $ cd wsp-math-exam/
+
     $ export COMPOSE_FILE=local.yml
     
     $ docker-compose -f local.yml build
