@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+""" users's urls """
+
+
 from django.urls import path
 
 from math_class_exams.users.views import (
