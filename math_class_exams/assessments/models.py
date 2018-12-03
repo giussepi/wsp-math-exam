@@ -18,7 +18,7 @@ class Assessment(models.Model):
     assessments = models.ManyToManyField(User, through='UserAssesment')
 
     def __str__(self):
-        return str(name)
+        return str(self.name)
 
 
 class UserAssesment(models.Model):
@@ -52,7 +52,7 @@ class Solution(models.Model):
     correct = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.pk
+        return str(self.text[:10])
 
 
 class Answer(models.Model):

@@ -7,8 +7,41 @@ from django.contrib import admin
 from .models import Assessment, UserAssesment, Question, Solution, Answer
 
 
-admin.site.register(Assessment)
+class QuestionInLine(admin.TabularInline):
+    """  """
+    model = Question
+    raw_id_fields = ('solutions', )
+
+
+@admin.register(Assessment)
+class AssessmentAdmin(admin.ModelAdmin):
+    """  """
+    inlines = [
+        QuestionInLine
+    ]
+
+
+@admin.register(Solution)
+class SolutionAdmin(admin.ModelAdmin):
+    """  """
+    list_display = ('text', 'correct')
+    list_display_links = list_display
+
+
+class SolutionInLine(admin.TabularInline):
+    """  """
+    model = Question.solutions.through
+    max_num = 3
+
+
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    """  """
+    inlines = [
+        SolutionInLine
+    ]
+    exclude = ('solutions', )
+
+
 admin.site.register(UserAssesment)
-admin.site.register(Question)
-admin.site.register(Solution)
 admin.site.register(Answer)
