@@ -1,0 +1,5 @@
+[run]
+include = math_class_exams/*
+omit = *migrations*, *tests*
+plugins =
+    django_coverage_plugin
