@@ -15,7 +15,7 @@
     <tr>
       <th scope="row">{{ forloop.counter }}</th>
       <td><a href="{{ test.get_absolute_url }}">{{ test.name }}</a></td>
-      <td><a href="#">Take test</a></td>
+      <td><a href="{% url 'assessments:assessment_take' test.pk %}">Take test</a></td>
     </tr>
     {% empty %}
     <th scope="row"></th>

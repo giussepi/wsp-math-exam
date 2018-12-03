@@ -48,6 +48,13 @@ class UserAssesment(models.Model):
     def __str__(self):
         return '{} - {} - {}%'.format(self.user, self.assessment, self.score)
 
+    def calculate_score(self):
+        """ """
+        total = self.answer_set.count()
+        correct_answers = self.answer_set.filter(selected_answer__correct=True).count()
+
+        return (correct_answers * 100) / total
+
 
 class Question(models.Model):
     """ Hold Assessment's questions """

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="POST" action=".">
+  {% csrf_token %}
+
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+	<th scope="col">#</th>
+	<th scope="col">Question</th>
+	<th scope="col">Options</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for question in object.question_set.all %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ question }}</td>
+      <td>
+	{% for solution in question.solutions.all %}
+  	  <div class="custom-control custom-radio">
+  	    <input type="radio" id="customRadio_{{ question.id }}_{{ solution.id }}" name="question_{{ question.id }}" class="custom-control-input" value="{{ solution.id }}" {% if forloop.first%}checked{% endif %}>
+	    <label class="custom-control-label" for="customRadio_{{ question.id }}_{{ solution.id }}">{{ solution }}</label><br/>
+	  </div>
+	{% endfor %}
+      </td>
+    </tr>
+    {% empty %}
+      <th scope="row"></th>
+      <td>Nothing to show</td>
+      <td></td>
+    {% endfor %}
+    </tbody>
+  </table>      
+
+  
+  <a class="button secondaryAction" href="{% url 'assessments:assessment_list' %}">Cancel</a>
+  <button class="primaryAction btn btn-primary" type="submit">Submit</button>
+</form>  
+
+{% endblock %}
