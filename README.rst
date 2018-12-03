@@ -18,6 +18,23 @@ Moved to settings_.
 
 .. _settings: http://cookiecutter-django.readthedocs.io/en/latest/settings.html
 
+
+Build The Stack
+---------------
+    $ export COMPOSE_FILE=local.yml
+    $ docker-compose -f local.yml build
+
+
+Run the Stack
+-------------
+    $ docker-compose up
+    Or run it detached
+    $ docker-compose up -d
+
+    Now http://127.0.0.1:8000 is available to any user and http://127.0.0.1:8000/admin/ is available to admin user (teachers, see below how to create an admin user using createsuperuser)
+    Browse the REST API on  http://127.0.0.1:8000/api/
+
+
 Basic Commands
 --------------
 
@@ -30,16 +47,12 @@ Setting Up Your Users
 
     $ python manage.py createsuperuser
 
+If you're using docker just prepend docker-compose run django, like this
+
+    $ docker-compose run --rm django python manage.py createsuperuser
+
 For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
-Type checks
-^^^^^^^^^^^
-
-Running type checks with mypy:
-
-::
-
-  $ mypy math_class_exams
 
 Test coverage
 ^^^^^^^^^^^^^
@@ -47,25 +60,18 @@ Test coverage
 To run the tests, check your test coverage, and generate an HTML coverage report::
 
     $ coverage run -m pytest
+    $ docker-compose run django coverage run -m pytest
     $ coverage html
     $ open htmlcov/index.html
 
-Running tests with py.test
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Or just print the report
 
-::
+    $ coverage run -m pytest
+    $ coverage result
 
-  $ pytest
+If you're using docker just prepend docker-compose run django, like this
 
-Live reloading and Sass CSS compilation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Moved to `Live reloading and SASS compilation`_.
-
-.. _`Live reloading and SASS compilation`: http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html
-
-
-
+    $ docker-compose run django coverage run -m pytest
 
 
 Deployment
@@ -81,6 +87,3 @@ Docker
 See detailed `cookiecutter-django Docker documentation`_.
 
 .. _`cookiecutter-django Docker documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html
-
-
-
