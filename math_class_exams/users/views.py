@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+""" users' views """
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
