@@ -52,7 +52,7 @@ Setting Up Your Users
 
     $ python manage.py createsuperuser
 
-If you're using docker just prepend docker-compose run django, like this
+If you're using docker just prepend docker-compose run django, like this::
 
     $ docker-compose run --rm django python manage.py createsuperuser
 
@@ -63,16 +63,6 @@ Test coverage
 ^^^^^^^^^^^^^
 
 To run the tests, check your test coverage, and generate an HTML coverage report::
-
-    $ coverage run -m pytest
-    
-    $ docker-compose run django coverage run -m pytest
-    
-    $ coverage html
-    
-    $ open htmlcov/index.html
-
-Or just print the report
 
     $ coverage run -m pytest
     
