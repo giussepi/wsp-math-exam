@@ -5,6 +5,7 @@ import re
 
 from django import forms
 
+from .constants import PassFail
 from .models import Assessment, UserAssesment, Answer
 
 
@@ -52,4 +53,10 @@ class TakeAssessmentForm(forms.ModelForm):
                 userassesment=user_assessment, question=question, selected_answer=solution)
 
         user_assessment.score = user_assessment.calculate_score()
+
+        if user_assessment.score >= self.instance.threshold:
+            user_assessment.result = PassFail.PASSED
+        else:
+            user_assessment.result = PassFail.FAILED
+
         user_assessment.save()

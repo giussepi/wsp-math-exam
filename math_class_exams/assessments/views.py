@@ -25,7 +25,8 @@ class AssessmentDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['score'] = self.object.get_score_for_user(self.request.user)
+        context['score'], context['result'] = \
+            self.object.get_score_and_result_for_user(self.request.user)
 
         return context
 
@@ -33,7 +34,6 @@ class AssessmentDetail(LoginRequiredMixin, DetailView):
 class TakeAssessment(LoginRequiredMixin, TemplateView):
     """ Handles the take assessment view """
     template_name = "assessments/takeassessment_form.html"
-    # success_url = reverse_lazy('assessments:assessment_list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

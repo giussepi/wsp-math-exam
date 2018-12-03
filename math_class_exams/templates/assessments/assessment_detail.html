@@ -3,5 +3,6 @@
 {% block content %}
 <h2> Assessment: {{ object }} </h2>
 <h4> Score: {{ score }}</h4>
+<h4> Result: {% if result == '1' %}passed{% else %}failed{% endif %}<h4>
 
 {% endblock %}

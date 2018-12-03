@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.urls import reverse
 
-from .constants import QuestionDifficulty
+from .constants import QuestionDifficulty, PassFail
 
 
 User = get_user_model()
@@ -18,6 +18,7 @@ class Assessment(models.Model):
     created = models.DateTimeField(auto_now_add=False)
     name = models.CharField(max_length=255)
     assessments = models.ManyToManyField(User, through='UserAssesment')
+    threshold = models.FloatField(default=0.6)
 
     def __str__(self):
         return str(self.name)
@@ -26,8 +27,8 @@ class Assessment(models.Model):
         """ returns the detail url of the object """
         return reverse('assessments:assessment_detail', kwargs={'pk': self.pk})
 
-    def get_score_for_user(self, user):
-        """ Returns the score of the user """
+    def get_score_and_result_for_user(self, user):
+        """ Returns the score and result of the user """
         assert isinstance(user, User)
 
         try:
@@ -35,7 +36,7 @@ class Assessment(models.Model):
         except ObjectDoesNotExist:
             return 0
         else:
-            return obj.score
+            return obj.score, obj.result
 
 
 class UserAssesment(models.Model):
@@ -44,6 +45,8 @@ class UserAssesment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     assessment = models.ForeignKey(Assessment, on_delete=models.CASCADE)
     score = models.FloatField(default=0.0)
+    result = models.CharField(
+        max_length=1, choices=PassFail.CHOICES, default=PassFail.FAILED)
 
     def __str__(self):
         return '{} - {} - {}%'.format(self.user, self.assessment, self.score)

@@ -14,3 +14,15 @@ class QuestionDifficulty:
         (MEDIUM, 'Medium'),
         (HARD, 'Hard'),
     )
+
+
+class PassFail:
+    """ Holds pass/fail statuses """
+
+    FAILED = '0'
+    PASSED = '1'
+
+    CHOICES = (
+        (FAILED, 'Failed'),
+        (PASSED, 'Passed'),
+    )
