@@ -34,7 +34,7 @@ class Assessment(models.Model):
         try:
             obj = user.userassesment_set.get(assessment=self)
         except ObjectDoesNotExist:
-            return 0
+            return 0, 0
         else:
             return obj.score, obj.result
 

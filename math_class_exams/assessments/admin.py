@@ -13,11 +13,15 @@ class QuestionInLine(admin.TabularInline):
     raw_id_fields = ('solutions', )
 
 
+class UserAssessmentInLine(admin.TabularInline):
+    model = UserAssesment
+
+
 @admin.register(Assessment)
 class AssessmentAdmin(admin.ModelAdmin):
     """  """
     inlines = [
-        QuestionInLine
+        QuestionInLine, UserAssessmentInLine
     ]
 
 
