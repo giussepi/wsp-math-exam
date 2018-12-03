@@ -22,13 +22,16 @@ Moved to settings_.
 Build The Stack
 ---------------
     $ export COMPOSE_FILE=local.yml
+    
     $ docker-compose -f local.yml build
 
 
 Run the Stack
 -------------
     $ docker-compose up
+    
     Or run it detached
+    
     $ docker-compose up -d
 
     Now http://127.0.0.1:8000 is available to any user and http://127.0.0.1:8000/admin/ is available to admin user (teachers, see below how to create an admin user using createsuperuser)
@@ -60,13 +63,17 @@ Test coverage
 To run the tests, check your test coverage, and generate an HTML coverage report::
 
     $ coverage run -m pytest
+    
     $ docker-compose run django coverage run -m pytest
+    
     $ coverage html
+    
     $ open htmlcov/index.html
 
 Or just print the report
 
     $ coverage run -m pytest
+    
     $ coverage result
 
 If you're using docker just prepend docker-compose run django, like this
