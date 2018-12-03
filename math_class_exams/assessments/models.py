@@ -2,7 +2,9 @@
 """ assessment's models """
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.urls import reverse
 
 from .constants import QuestionDifficulty
 
@@ -19,6 +21,21 @@ class Assessment(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+    def get_absolute_url(self):
+        """ returns the detail url of the object """
+        return reverse('assessments:assessment_detail', kwargs={'pk': self.pk})
+
+    def get_score_for_user(self, user):
+        """ Returns the score of the user """
+        assert isinstance(user, User)
+
+        try:
+            obj = user.userassesment_set.get(assessment=self)
+        except ObjectDoesNotExist:
+            return 0
+        else:
+            return obj.score
 
 
 class UserAssesment(models.Model):
